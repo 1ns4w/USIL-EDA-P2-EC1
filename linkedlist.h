@@ -1,15 +1,19 @@
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
 
-// #include
-// #include <vector>
-// using namespace std;
+#include <stdlib.h>
+#include <vector>
+using namespace std;
 
 template <typename T>
 class LinkedList
 {
   private:
-  // members here
+    T size_now;
+    T size_max;
+    Node *next;
+    Node *prev;
+    string data;
   public:
     T front(); // Retorna el elemento al comienzo
     T back(); // Retorna el elemento al final
@@ -34,9 +38,18 @@ void LinkedList<T>::front(T &elem)
 
 // Comments #3
 template <typename T>
-T LinkedList<T>::back()
+T LinkedList<T>::empty()
 {
-
+  bool cola<T>::empty()
+{
+  return(size_now ==0);
 }
+ template <typename k>
+T cola<T>::size()
+{
+  return size_now;
+}
+}
+system("clear"); //Limpia la pantalla
 
 #endif
