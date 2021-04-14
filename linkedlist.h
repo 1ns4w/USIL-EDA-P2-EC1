@@ -1,29 +1,49 @@
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
 
-// #include
-// #include <vector>
-// using namespace std;
+#include <iostream>
+using namespace std;
 
 template <typename T>
-class LinkedList
-{
-  private:
-  // members here
+class Node{
   public:
-    T front(); // Retorna el elemento al comienzo
-    T back(); // Retorna el elemento al final
-    void push_front(T &elem); // Agrega un elemento al comienzo 
-    void push_back(T &elem); // Agrega un elemento al final
-    void pop_front(); // Remueve el elemento al comienzo pero no lo retorna
-    void pop_back(); // Remueve el elemento al final pero no lo retorna
-    T operator[](size_t pos); // Retorna el elemento en la posición indicada
-    bool empty(); // Retorna si la lista está vacía o no
-    size_t size(); // Retorna el tamaño de la lista 
-    void clear(); // Elimina todos los elementos de la lista
-    void sort(); // Ordena la lista
-    void reverse(); // Revierte la lista
+    T key;
+    T data;
+    Node* next;
+
+    Node(){
+      key=0;
+      data=0;
+      next= NULL;
+    }
+    Node(int k, int d){
+      key = k;
+      data = d;
+    }
+
 };
+
+//fatla terminar
+class LinkedList{
+  public:
+    Node* head;
+
+    LinkedList(){
+      head = NULL;
+    }
+    LinkedList(Node *n){
+      head=n;
+    }
+    Node* nodeExists(int k);
+
+    Node* temp =NULL;
+
+    Node* ptr = head;
+}
+
+
+
+
 
 // Comments #2
 template <typename T>
