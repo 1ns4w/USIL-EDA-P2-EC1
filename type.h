@@ -1,1 +1,1 @@
-
+typedef int E;
