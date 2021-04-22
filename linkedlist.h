@@ -43,8 +43,10 @@ class LinkedList
 template <typename T>
 bool LinkedList<T>::empty()
 {
-  return first->next=last;
-}
+  if (first->next=last)
+    return true;
+  else
+    return false;
 
 template <typename T>
 T LinkedList<T>::get_front()
