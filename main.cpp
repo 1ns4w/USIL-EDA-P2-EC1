@@ -1,16 +1,26 @@
 #include <iostream>
 #include "linkedlist.h"
 #include "type.h"
-
 using namespace std;
 
-int main()
-{
-  LinkedList<T1> lista;
-  T1 x;
-  for(x = 0; x < 10 ; x++)
-    lista.insert2(x);
-  cout << "Fin de la inserción ..." << endl;
-  lista[5] = 78;
-  cout << lista;
+int main() {
+  linkedlist<T1>kevin;
+
+  for(T1 i=0; i<5; i++)
+  {
+    if(i%2)
+    {
+      kevin.push_front(i);
+    }
+    else
+    {
+      kevin.push_back(i);
+    }
+  }
+  kevin.push_posicion(5, 2);
+  kevin.pop_posicion(2);
+  kevin.pop_front();
+  kevin.pop_back();
+
+  return 0;
 }
