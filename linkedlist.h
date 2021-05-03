@@ -1,108 +1,168 @@
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
-
-// #include
-// #include <vector>
+#include <iostream>
+#include <stdio.h>  
 using namespace std;
 
+
 template <typename T>
-class LinkedList
+class linkedlist
 {
   private:
-  struct Node
-  {
-      T data;
-      Node *m_pNext;
-      Node(T &_data, Node *pNext=nullptr) 
-          : data(_data), m_pNext(pNext) {}
-      T     &getData()            { return data; }
-      void   setData(T &_data)    { data = _data;}
-      Node *&getpNext()           { return m_pNext; }
-      void   setpNext(Node *pNext){ m_pNext = pNext;}
-  };
-  Node *m_pRoot = nullptr;
-  typedef Node *PNODE;
-  typedef PNODE &RPNODE;
-  // members here
-  public:
-    T front(); // Retorna el elemento al comienzo
-    T back(); // Retorna el elemento al final
-    void push_front(T &elem); // Agrega un elemento al comienzo 
-    void push_back(T &elem); // Agrega un elemento al final
-    void pop_front(); // Remueve el elemento al comienzo pero no lo retorna
-    void insert(T &elem);
-    void insert2(T &elem);
-    void internal_insert(RPNODE pPrev, T &elem);
-    void pop_back(); // Remueve el elemento al final pero no lo retorna
-    T &operator[](size_t pos); // Retorna el elemento en la posición indicada
-    bool empty(); // Retorna si la lista está vacía o no
-    size_t size(); // Retorna el tamaño de la lista 
-    void clear(); // Elimina todos los elementos de la lista
-    void sort(); // Ordena la lista
-    void reverse(); // Revierte la lista
+      size_t m_tam = 0;
+      struct *Node  
+      {
+        T data;
+        Node* next;
+        Node* link;
+        Node(T _elem)
+        {
+          data = _elem;
+          next = _nullptr;
+        }
+      };
 
-    ostream &recorrer_imprimiendo(ostream &os);
-    template <typename F>
-    void recorrer(F &func); // Buscar funciones Lambda
-                            // Buscar object functions
+      Node *head;
+
+  public:
+      linkedlist()
+      {
+        head = nullptr;
+        nail = nullptr;
+      }
+      T front(); // Retorna el elemento al comienzo
+      T back(); // Retorna el elemento al final
+      void push_front(T &elem); // Agrega un elemento al comienzo 
+      void push_back(T &elem); // Agrega un elemento al final
+      void pop_front(); // Remueve el elemento al comienzo pero no lo retorna
+      void insert(T &elem);
+      void insert2(T &elem);
+      void internal_insert(RPNODE pPrev, T &elem);
+      void pop_back(); // Remueve el elemento al final pero no lo retorna
+      T &operator[](size_t pos); // Retorna el elemento en la posición indicada
+      bool empty(); // Retorna si la lista está vacía o no
+      size_t size(); // Retorna el tamaño de la lista 
+      void clear(); // Elimina todos los elementos de la lista
+      void sort(); // Ordena la lista
+      void reverse(); // Revierte la lista
+
+      size_t size(ostream &os);//listo
+      T &operator[](size_t pos); // listo
+
+      void sort(); //listo
 };
 
-//forma 1
-template <typename T>
-void LinkedList<T>::insert(T &elem)
-{
-  Node **pPrev = &m_pRoot;
-  while(*pPrev && elem > (*pPrev)->getData() )
-  {   pPrev = &(*pPrev)->getpNext();  }
-
-  Node *pNewNode=new Node(elem, *pPrev);
-  *pPrev = pNewNode;
-}
-
-//forma 2
-template <typename T>
-void LinkedList<T>::insert2(T &elem)
-{
-  internal_insert(m_pRoot, elem);
-}
-//forma 2 continuidad
-template <typename T>
-void LinkedList<T>::internal_insert(RPNODE pPrev, T &elem)
-{
-  if(!pPrev || elem < pPrev->getData())
+  // Retorna el elemento al comienzo
+  template <typename T>
+  T linkedlist<T>::front()
   {
-    Node *pNewNode = new Node(elem, pPrev);
-    pPrev = pNewNode;
+  Node *first=head;
+  if(head==nullptr)
+  {
+    cout<<"List empty"<<endl;
   }
   else
-    internal_insert(pPrev->getpNext(), elem);
+    {
+    first->data=head->data;
+    cout<<"El primer elemtno es: "<<first->data<<endl;
+    return first->data;
+     }
+  printList();
+  }
+
+  // Retorna el elemento al final
+  template <typename T>
+  T linkedlist<T>::back()
+  {
+   Node *nail= nullptr;
+    if(head==nullptr)
+   {
+    head=last;
+    cout<<"NULL"<<endl;
+    }
+    else
+    {
+      cout << nail;  
+    }
+
+  // Agrega un elemento al comienzo 
+  template <typename T>
+  void linkedlist<T>::push_front(T &&elem)
+  {
+  Node *newHead=new Node(elem);
+
+  newHead->next=head;
+  head=newHead;
+
+  cout<<"Dato insertado satisfactoriamente al comienzo: "<<elem<< endl;
+  printList();
+  }
+    
+   // Agrega un elemento al final
+   template <typename T>
+  void linkedlist<T>::push_back(T &&elem)
+  {
+  Node *newTail=new Node(&&elem);
+
+  if(head==nullptr)
+  {
+    head=newTail;
+    cout<<"Dato insertado satisfactoriamente al final: "<<elem<< endl;
+    printList();
+  }
+
+   // Remueve el elemento al comienzo pero no lo retorna
+    template <typename T>
+    void linkedlist<T>::pop_front()
+   {
+   assert(head != nullptr);
+
+   Node *temp=head;
+   head=temp->next;
+   delete temp;
+   cout<<"Cabeza eliminada: "<< endl;
+   printList();
+   }
+    
+    
+ //delete
+template <typename T>
+void linkedlist<T>::clear()
+{
+  Node *temp=head;
+  while(temp != nullptr)
+  {
+    temp=temp->link;
+    free(head);
+    head=temp;
+  }
+  return head;
 }
 
+//Lista vacia o no¿?
 template <typename T>
-ostream &LinkedList<T>::recorrer_imprimiendo(ostream &os)
+bool linkedlist<T>::empty()
 {
-  auto pNode = m_pRoot;
-  while( pNode != nullptr )
+  if(head==nullptr)
   {
-      os << pNode->getData() << endl;
-      pNode = pNode->getpNext();
+    cout<<"Empty list"<< endl;
+    return true;
   }
-  return os; 
+  else
+  {
+    return false;
+  }
 }
 
+
+
+//tamaño de lista
 template <typename T>
-template <typename F>
-void &LinkedList<T>::recorrer(F &func)
-{
-  auto pNode = m_pRoot;
-  while( pNode != nullptr )
-  {
-      func( pNode->getData() );
-      pNode = pNode->getpNext();
-  }
-  return os; 
+size_t linkedlist<T>::size(ostream &os){
+  os<<"  El tamaño de la lista es: "<< size_ll<< endl;
+  return size_ll;
 }
-//forma 1
+
 template <typename T>
 T &LinkedList<T>::operator[](size_t pos)
 {
@@ -110,23 +170,6 @@ T &LinkedList<T>::operator[](size_t pos)
   for(size_t i = 0; i < pos ; i++)
     pPrev = &(*pPrev)->getpNext();
   return (*pPrev)->getData();
-}
-
-//forma 2
-/*template <typename T>
-T &LinkedList<T>::operator[](size_t pos)
-{
-  if(!pos)
-    return 
-  Node *pPrev = &m_pRoot;
-  for(size_t i = 0; i < pos ; i++)
-    pPrev = &(*pPrev)->getpNext();
-  return (*pPrev)->getData();
-}*/
-
-template <typename T>
-ostream &operator<<(ostream &os, LinkedList<T> &lista)
-{
-  return lista.recorrer(os);
+} 
 }
 #endif
